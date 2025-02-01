@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker with Sliders</title>
+    <style>
+        * {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bolder;
+        }
+        .slider-container {
+            position: relative;
+            width: 40%;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+        }
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 9.5px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            margin:10px;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            position: relative;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+        }
+        .details {
+            border: 3px solid black;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            padding: 15px;
+            font-size:25px;
+            border-top-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            margin-bottom: 0px;
+        }
+        .tags-slider{
+            margin:10px;
+        }
+        .tags{
+            font-size: 22px;
+            font-weight: bolder;
+        }
+        .copy{
+            border:none;
+            height:27px;
+            font-size:15px;
+            background-color: transparent;
+            cursor:pointer;
+            float: right;
+            top:0;
+        }
+        @media (max-width: 600px) {
+            .main-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 90vh;
+                width: 100%;
+            }
+            .slider {
+                width: 150%;
+            }
+            .slider-container{
+                align-self: center;
+                width:80%;
+            }
+            .details {
+                font-size: 16px; 
+                width: 80%;
+                margin-bottom:30px;
+                font-weight:bolder;
+            }
+            .tags {
+                font-size: 26px; 
+            }
+            .copy {
+                font-size: 12px; 
+            }
+            .tags-slider{
+                margin:0;
+                float:left;
+            }
+        }        
+    </style>>
+</head>
+<body>
+    <div class="main-container">
+        <div class="details">
+            <div id="hex">hex  <span id="hexValue" class="values"> #FFFFFF</span> 
+                <button class="copy" data-target="hexValue">
+                    <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 15C9 12.1716 9 10.7574 9.87868 9.87868C10.7574 9 12.1716 9 15 9L16 9C18.8284 9 20.2426 9 21.1213 9.87868C22 10.7574 22 12.1716 22 15V16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H15C12.1716 22 10.7574 22 9.87868 21.1213C9 20.2426 9 18.8284 9 16L9 15Z" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path opacity="0.4" d="M16.9999 9C16.9975 6.04291 16.9528 4.51121 16.092 3.46243C15.9258 3.25989 15.7401 3.07418 15.5376 2.90796C14.4312 2 12.7875 2 9.5 2C6.21252 2 4.56878 2 3.46243 2.90796C3.25989 3.07417 3.07418 3.25989 2.90796 3.46243C2 4.56878 2 6.21252 2 9.5C2 12.7875 2 14.4312 2.90796 15.5376C3.07417 15.7401 3.25989 15.9258 3.46243 16.092C4.51121 16.9528 6.04291 16.9975 9 16.9999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="rgba" >rgba(<span id="r">255</span>, <span id="g">255</span>, <span id="b">255</span>, <span id="o">1</span>)<button class="copy" data-target="rgba">
+                <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 15C9 12.1716 9 10.7574 9.87868 9.87868C10.7574 9 12.1716 9 15 9L16 9C18.8284 9 20.2426 9 21.1213 9.87868C22 10.7574 22 12.1716 22 15V16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H15C12.1716 22 10.7574 22 9.87868 21.1213C9 20.2426 9 18.8284 9 16L9 15Z" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path opacity="0.4" d="M16.9999 9C16.9975 6.04291 16.9528 4.51121 16.092 3.46243C15.9258 3.25989 15.7401 3.07418 15.5376 2.90796C14.4312 2 12.7875 2 9.5 2C6.21252 2 4.56878 2 3.46243 2.90796C3.25989 3.07417 3.07418 3.25989 2.90796 3.46243C2 4.56878 2 6.21252 2 9.5C2 12.7875 2 14.4312 2.90796 15.5376C3.07417 15.7401 3.25989 15.9258 3.46243 16.092C4.51121 16.9528 6.04291 16.9975 9 16.9999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button></div>
+            <div id="hsla">hsla(<span id="h">360</span>, <span id="s">100</span>%, <span id="l">100</span>%, <span id="a">1</span>)<button class="copy" data-target="hsla">
+                <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 15C9 12.1716 9 10.7574 9.87868 9.87868C10.7574 9 12.1716 9 15 9L16 9C18.8284 9 20.2426 9 21.1213 9.87868C22 10.7574 22 12.1716 22 15V16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H15C12.1716 22 10.7574 22 9.87868 21.1213C9 20.2426 9 18.8284 9 16L9 15Z" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path opacity="0.4" d="M16.9999 9C16.9975 6.04291 16.9528 4.51121 16.092 3.46243C15.9258 3.25989 15.7401 3.07418 15.5376 2.90796C14.4312 2 12.7875 2 9.5 2C6.21252 2 4.56878 2 3.46243 2.90796C3.25989 3.07417 3.07418 3.25989 2.90796 3.46243C2 4.56878 2 6.21252 2 9.5C2 12.7875 2 14.4312 2.90796 15.5376C3.07417 15.7401 3.25989 15.9258 3.46243 16.092C4.51121 16.9528 6.04291 16.9975 9 16.9999" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button></div>
+        </div>
+        <div class="slider-container">
+            <div class="tags-slider"><span class="tags">R</span> <input type="range" class="slider" id="red" min="0" max="255" value="255"></div>
+            <div class="tags-slider"><span class="tags">G</span> <input type="range" class="slider" id="green" min="0" max="255" value="255"></div>
+            <div class="tags-slider"><span class="tags">B</span> <input type="range" class="slider" id="blue" min="0" max="255" value="255"></div>
+            <div class="tags-slider"><span class="tags">O</span> <input type="range" class="slider" id="opacity" min="0" max="1" step="0.1" value="1"></div>
+            <div class="tags-slider"><span class="tags">H</span> <input type="range" class="slider" id="hue" min="0" max="359" value="360"></div>
+            <div class="tags-slider"><span class="tags">S</span> <input type="range" class="slider" id="saturation" min="0" max="100" value="100"></div>
+            <div class="tags-slider"><span class="tags">L</span> <input type="range" class="slider" id="lightness" min="0" max="100" value="100"></div>
+            <div class="tags-slider"><span class="tags">A</span> <input type="range" class="slider" id="alpha" min="0" max="1" step="0.1" value="1"></div>
+        </div>
+    </div>
+    <script>
+        const red = document.getElementById("red");
+        const green = document.getElementById("green");
+        const blue = document.getElementById("blue");
+        const opacity = document.getElementById("opacity");
+        const hue = document.getElementById("hue");
+        const saturation = document.getElementById("saturation");
+        const lightness = document.getElementById("lightness");
+        const alpha = document.getElementById("alpha");
+
+
+        function updateHEX() {
+            let r = parseInt(red.value).toString(16).padStart(2, "0");
+            let g = parseInt(green.value).toString(16).padStart(2, "0");
+            let b = parseInt(blue.value).toString(16).padStart(2, "0");
+            let hexColor = `#${r}${g}${b}`;
+            document.getElementById("hexValue").textContent = hexColor;
+        }
+
+        function updateRGBA() { 
+            let r = red.value;
+            let g = green.value;
+            let b = blue.value; 
+            let o = opacity.value;
+            let rgbaColor = `RGBA(${r}, ${g}, ${b}, ${o})`;
+            document.getElementById("r").textContent = r; 
+            document.getElementById("g").textContent = g;
+            document.getElementById("b").textContent = b;
+            document.getElementById("o").textContent = o;
+
+            document.body.style.backgroundColor = rgbaColor;
+        }
+
+        function updateHSLA() {
+            let h = hue.value;
+            let s = saturation.value;
+            let l = lightness.value;
+            let a = alpha.value;
+        
+            let hslaColor = `HSLA(${h}, ${s}%, ${l}%, ${a})`;
+            document.getElementById("h").textContent = h;
+            document.getElementById("s").textContent = s;
+            document.getElementById("l").textContent = l;
+            document.getElementById("a").textContent = a;
+        
+            document.body.style.backgroundColor = hslaColor;
+        }
+
+        function update_two() {
+            updateHEX();
+            updateRGBA();
+
+        }
+        function update_one(){
+            updateHSLA();
+        }
+
+        [red, green, blue, opacity].forEach(slider => {
+            slider.addEventListener('input', update_two);
+        });
+
+        [hue, saturation, lightness, alpha].forEach(slider => {
+            slider.addEventListener('input', update_one);
+        });
+
+
+        const copyButtons = document.querySelectorAll('.copy');
+
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+            
+                const tempInput = document.createElement('input');
+                document.body.appendChild(tempInput);
+            
+                tempInput.value = targetElement.textContent || targetElement.innerText;
+            
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999);
+            
+                document.execCommand('copy');
+            
+                document.body.removeChild(tempInput);
+            
+                //alert(`${targetElement.id} value copied to clipboard: ${tempInput.value}`);
+            });
+        });  
+    </script>
+</body>
+</html>
+
+<!--
+// oninput="updateSliderValue(this)
+//function updateSliderValue(slider) {
+//    const sliderValue = document.getElementById('sliderValue');
+//    sliderValue.textContent = slider.value;
+//    // Calculate the position of the displayed value to center it over the thumb
+//    const percent = (slider.value - slider.min) / (slider.max - slider.min);
+//    const offset = percent * (slider.offsetWidth - 20); 
+//    sliderValue.style.left = ${offset}px;
+//}
+//// Initial update to set the value position on page load
+//document.addEventListener("DOMContentLoaded", function() {
+//    updateSliderValue(document.getElementById('slider'));
+//});
+//#<span id="hex-r"></span><span id="hex-g"></span><span id="hex-b"> -->
